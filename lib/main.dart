@@ -4,7 +4,6 @@ import 'package:flutter_doctor_craving/screens/food_categories_screen.dart';
 
 final colorSchemeLight = ColorScheme.fromSeed(
   seedColor: Colors.deepOrangeAccent,
-  brightness: Brightness.light,
 );
 final colorSchemeDark = ColorScheme.fromSeed(
   seedColor: Colors.deepOrangeAccent,
@@ -21,7 +20,7 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(colorScheme: colorSchemeLight),
+      theme: ThemeData().copyWith(colorScheme: colorSchemeLight),
       darkTheme: ThemeData.dark().copyWith(colorScheme: colorSchemeDark),
       themeMode: ThemeMode.system,
       home: const FoodCategoriesScreen(),
