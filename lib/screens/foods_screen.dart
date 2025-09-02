@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_doctor_craving/models/food.dart';
+import 'package:flutter_doctor_craving/widgets/food_item.dart';
 
 class FoodsScreen extends StatelessWidget {
   const FoodsScreen({super.key, required this.foodTitle, required this.foods});
@@ -11,7 +12,7 @@ class FoodsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     Widget screenContent = ListView.builder(
       itemCount: foods.length,
-      itemBuilder: (ctx, idx) => Text(foods[idx].title),
+      itemBuilder: (ctx, idx) => FoodItem(food: foods[idx]),
     );
 
     if (foods.isEmpty) {

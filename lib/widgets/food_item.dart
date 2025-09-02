@@ -13,6 +13,11 @@ class FoodItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      margin: const EdgeInsets.all(12),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
+      ),
+      clipBehavior: Clip.hardEdge,
       child: InkWell(
         onTap: () {},
         child: Stack(
@@ -20,6 +25,9 @@ class FoodItem extends StatelessWidget {
             FadeInImage(
               placeholder: MemoryImage(kTransparentImage),
               image: NetworkImage(food.imageUrl),
+              fit: BoxFit.cover,
+              height: 250,
+              width: double.infinity,
             ),
             Positioned(
               bottom: 0,
@@ -27,6 +35,31 @@ class FoodItem extends StatelessWidget {
               right: 0,
               child: Container(
                 color: Colors.black54,
+                padding: const EdgeInsets.symmetric(
+                  vertical: 6,
+                  horizontal: 44,
+                ),
+                child: Column(
+                  children: [
+                    Text(
+                      food.title,
+                      maxLines: 2,
+                      textAlign: TextAlign.center,
+                      softWrap: true,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 12,
+                    ),
+                    Row(
+                      children: [],
+                    ),
+                  ],
+                ),
               ),
             ),
           ],
