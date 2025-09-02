@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_doctor_craving/data/dummy_data.dart';
+import 'package:flutter_doctor_craving/widgets/category_grid_item.dart';
 
 class FoodCategoriesScreen extends StatelessWidget {
   const FoodCategoriesScreen({super.key});
@@ -13,16 +15,12 @@ class FoodCategoriesScreen extends StatelessWidget {
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
           childAspectRatio: 3 / 2,
-          crossAxisSpacing: 24,
-          mainAxisSpacing: 24,
+          crossAxisSpacing: 6,
+          mainAxisSpacing: 12,
         ),
         children: [
-          const Text("1"),
-          const Text("2"),
-          const Text("3"),
-          const Text("4"),
-          const Text("5"),
-          const Text("6"),
+          for (final foodCategory in availableCategories)
+            CategoryGridItem(foodCategory: foodCategory),
         ],
       ),
     );
