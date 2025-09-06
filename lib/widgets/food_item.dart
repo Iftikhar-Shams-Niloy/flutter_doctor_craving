@@ -1,14 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_doctor_craving/models/food.dart';
+import 'package:flutter_doctor_craving/widgets/food_item_trait.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 class FoodItem extends StatelessWidget {
   const FoodItem({
     super.key,
     required this.food,
+    required this.onSelectFood,
   });
 
   final Food food;
+  final Function(Food food) onSelectFood;
+
+  String get complexityText {
+    return food.complexity.name[0].toUpperCase() +
+        food.complexity.name.substring(1);
+  }
+
+  String get affordabilityText {
+    return food.affordability.name[0].toUpperCase() +
+        food.affordability.name.substring(1);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +32,9 @@ class FoodItem extends StatelessWidget {
       ),
       clipBehavior: Clip.hardEdge,
       child: InkWell(
-        onTap: () {},
+        onTap: () {
+          onSelectFood(food);
+        },
         child: Stack(
           children: [
             FadeInImage(
@@ -56,7 +71,26 @@ class FoodItem extends StatelessWidget {
                       height: 12,
                     ),
                     Row(
-                      children: [],
+                      children: [
+                        FoodItemTrait(
+                          icon: Icons.schedule,
+                          label: "${food.duration} min",
+                        ),
+                        const SizedBox(
+                          width: 12,
+                        ),
+                        FoodItemTrait(
+                          icon: Icons.work,
+                          label: complexityText,
+                        ),
+                        const SizedBox(
+                          width: 12,
+                        ),
+                        FoodItemTrait(
+                          icon: Icons.attach_money,
+                          label: affordabilityText,
+                        ),
+                      ],
                     ),
                   ],
                 ),
