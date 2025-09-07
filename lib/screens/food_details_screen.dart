@@ -15,11 +15,62 @@ class FoodDetailsScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text(food.title),
       ),
-      body: Image.network(
-        food.imageUrl,
-        height: 300,
-        width: double.infinity,
-        fit: BoxFit.cover,
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Image.network(
+              food.imageUrl,
+              height: 300,
+              width: double.infinity,
+              fit: BoxFit.cover,
+            ),
+            const SizedBox(
+              height: 14,
+            ),
+            Text(
+              "Ingredient",
+              style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                color: Theme.of(context).colorScheme.secondary,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(
+              height: 8,
+            ),
+            for (final ingredient in food.ingredients)
+              Text(
+                ingredient,
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.bodyMedium!.copyWith(),
+              ),
+
+            const SizedBox(
+              height: 16,
+            ),
+            Text(
+              "Steps",
+              style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                color: Theme.of(context).colorScheme.secondary,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(
+              height: 8,
+            ),
+            for (final step in food.steps)
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 8,
+                  vertical: 4,
+                ),
+                child: Text(
+                  step,
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(),
+                ),
+              ),
+          ],
+        ),
       ),
     );
   }
