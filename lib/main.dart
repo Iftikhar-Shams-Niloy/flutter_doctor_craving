@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_doctor_craving/screens/food_categories_screen.dart';
+import 'package:flutter_doctor_craving/screens/tabs_screen.dart';
 // import 'package:google_fonts/google_fonts.dart';
 
 final colorSchemeLight = ColorScheme.fromSeed(
@@ -23,7 +24,7 @@ class App extends StatelessWidget {
       theme: ThemeData().copyWith(colorScheme: colorSchemeLight),
       darkTheme: ThemeData.dark().copyWith(colorScheme: colorSchemeDark),
       themeMode: ThemeMode.system,
-      home: const FoodCategoriesScreen(),
+      home: const TabsScreen(),
     );
   }
 }
