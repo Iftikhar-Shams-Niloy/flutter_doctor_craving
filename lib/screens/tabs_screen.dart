@@ -25,7 +25,7 @@ class _TabsScreenState extends State<TabsScreen> {
     var activePageTitle = "Categories";
 
     if (_selectedPageIndex == 1) {
-      activePage = FoodsScreen(foodTitle: "Favorites", foods: []);
+      activePage = FoodsScreen(foods: []);
       activePageTitle = "Your Favorites";
     }
 
@@ -36,6 +36,7 @@ class _TabsScreenState extends State<TabsScreen> {
       body: activePage,
       bottomNavigationBar: BottomNavigationBar(
         onTap: _selectPage,
+        currentIndex: _selectedPageIndex,
         items: [
           BottomNavigationBarItem(
             icon: Icon(Icons.set_meal),

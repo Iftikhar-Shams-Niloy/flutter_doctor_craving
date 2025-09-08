@@ -6,11 +6,11 @@ import 'package:flutter_doctor_craving/widgets/food_item.dart';
 class FoodsScreen extends StatelessWidget {
   const FoodsScreen({
     super.key,
-    required this.foodTitle,
+    this.foodTitle,
     required this.foods,
   });
 
-  final String foodTitle;
+  final String? foodTitle;
   final List<Food> foods;
 
   void selectFood(BuildContext context, Food food) {
@@ -57,9 +57,12 @@ class FoodsScreen extends StatelessWidget {
         ),
       );
     }
+    if (foodTitle == null){
+      return screenContent;
+    } 
     return Scaffold(
       appBar: AppBar(
-        title: Text(foodTitle),
+        title: Text(foodTitle!),
       ),
       body: screenContent,
     );

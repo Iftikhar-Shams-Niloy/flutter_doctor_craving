@@ -23,28 +23,23 @@ class FoodCategoriesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Doctor Craving"),
+    return GridView(
+      padding: EdgeInsets.only(top: 16),
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        childAspectRatio: 3 / 2,
+        crossAxisSpacing: 6,
+        mainAxisSpacing: 12,
       ),
-      body: GridView(
-        padding: EdgeInsets.only(top: 16),
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          childAspectRatio: 3 / 2,
-          crossAxisSpacing: 6,
-          mainAxisSpacing: 12,
-        ),
-        children: [
-          for (final foodCategory in availableCategories)
-            CategoryGridItem(
-              foodCategory: foodCategory,
-              onSelectCategory: () {
-                _selectCategoryScreen(context, foodCategory);
-              },
-            ),
-        ],
-      ),
+      children: [
+        for (final foodCategory in availableCategories)
+          CategoryGridItem(
+            foodCategory: foodCategory,
+            onSelectCategory: () {
+              _selectCategoryScreen(context, foodCategory);
+            },
+          ),
+      ],
     );
   }
 }
