@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_doctor_craving/models/food.dart';
 import 'package:flutter_doctor_craving/screens/food_categories_screen.dart';
 import 'package:flutter_doctor_craving/screens/foods_screen.dart';
 
@@ -13,6 +14,17 @@ class TabsScreen extends StatefulWidget {
 
 class _TabsScreenState extends State<TabsScreen> {
   int _selectedPageIndex = 0;
+  final List<Food> _favoriteFoods = [];
+
+  void _toggleFoodFavoriteStatus(Food food) {
+    final isExisting = _favoriteFoods.contains(food);
+    if (isExisting) {
+      _favoriteFoods.remove(food);
+    } else {
+      _favoriteFoods.add(food);
+    }
+  }
+
   void _selectPage(int index) {
     setState(() {
       _selectedPageIndex = index;
@@ -21,11 +33,16 @@ class _TabsScreenState extends State<TabsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Widget activePage = const FoodCategoriesScreen();
+    Widget activePage = FoodCategoriesScreen(
+      onToggleFavorite: _toggleFoodFavoriteStatus,
+    );
     var activePageTitle = "Categories";
 
     if (_selectedPageIndex == 1) {
-      activePage = FoodsScreen(foods: []);
+      activePage = FoodsScreen(
+        foods: [],
+        onToggleFavorite: _toggleFoodFavoriteStatus,
+      );
       activePageTitle = "Your Favorites";
     }
 

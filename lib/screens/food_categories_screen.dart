@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_doctor_craving/data/dummy_data.dart';
+import 'package:flutter_doctor_craving/models/food.dart';
 import 'package:flutter_doctor_craving/models/food_category.dart';
 import 'package:flutter_doctor_craving/screens/foods_screen.dart';
 import 'package:flutter_doctor_craving/widgets/category_grid_item.dart';
 
 class FoodCategoriesScreen extends StatelessWidget {
-  const FoodCategoriesScreen({super.key});
+  const FoodCategoriesScreen({super.key, required this.onToggleFavorite});
+
+  final void Function(Food food) onToggleFavorite;
 
   void _selectCategoryScreen(BuildContext context, FoodCategory foodCategory) {
     final availableFoods = dummyFoods
@@ -16,6 +19,7 @@ class FoodCategoriesScreen extends StatelessWidget {
         builder: (ctx) => FoodsScreen(
           foodTitle: foodCategory.food_title,
           foods: availableFoods,
+          onToggleFavorite: onToggleFavorite,
         ),
       ),
     );
