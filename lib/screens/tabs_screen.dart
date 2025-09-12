@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_doctor_craving/models/food.dart';
 import 'package:flutter_doctor_craving/screens/food_categories_screen.dart';
 import 'package:flutter_doctor_craving/screens/foods_screen.dart';
+import 'package:flutter_doctor_craving/widgets/main_drawer.dart';
 
 class TabsScreen extends StatefulWidget {
   const TabsScreen({super.key});
@@ -63,6 +64,7 @@ class _TabsScreenState extends State<TabsScreen> {
       appBar: AppBar(
         title: Text(activePageTitle),
       ),
+      drawer: const MainDrawer(),
       body: activePage,
       bottomNavigationBar: BottomNavigationBar(
         onTap: _selectPage,

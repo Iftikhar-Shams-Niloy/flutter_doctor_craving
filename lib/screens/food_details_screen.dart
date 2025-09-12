@@ -47,16 +47,20 @@ class FoodDetailsScreen extends StatelessWidget {
             const SizedBox(
               height: 8,
             ),
+            // <-- Ingredients List Here --> //
             for (final ingredient in food.ingredients)
-              Text(
-                ingredient,
-                textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.bodyMedium!.copyWith(),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 2.0),
+                child: Text(
+                  ingredient,
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(),
+                ),
               ),
-
             const SizedBox(
               height: 16,
             ),
+            // <-- Steps Here -->
             Text(
               "Steps",
               style: Theme.of(context).textTheme.titleLarge!.copyWith(
@@ -71,7 +75,7 @@ class FoodDetailsScreen extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(
                   horizontal: 8,
-                  vertical: 4,
+                  vertical: 2,
                 ),
                 child: Text(
                   step,
