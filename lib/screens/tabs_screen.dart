@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_doctor_craving/models/food.dart';
+import 'package:flutter_doctor_craving/screens/filters_screen.dart';
 import 'package:flutter_doctor_craving/screens/food_categories_screen.dart';
 import 'package:flutter_doctor_craving/screens/foods_screen.dart';
 import 'package:flutter_doctor_craving/widgets/main_drawer.dart';
@@ -45,6 +46,19 @@ class _TabsScreenState extends State<TabsScreen> {
     });
   }
 
+  void _setScreen(String identifier) {
+    Navigator.of(context).pop();
+    if (identifier == "filters") {
+      Navigator.of(
+        context,
+      ).push(
+        MaterialPageRoute(
+          builder: (ctx) => FiltersScreen(),
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     Widget activePage = FoodCategoriesScreen(
@@ -64,7 +78,9 @@ class _TabsScreenState extends State<TabsScreen> {
       appBar: AppBar(
         title: Text(activePageTitle),
       ),
-      drawer: const MainDrawer(),
+      drawer: MainDrawer(
+        onSelectScreen: _setScreen,
+      ),
       body: activePage,
       bottomNavigationBar: BottomNavigationBar(
         onTap: _selectPage,
