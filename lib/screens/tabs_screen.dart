@@ -5,7 +5,8 @@ import 'package:flutter_doctor_craving/screens/filters_screen.dart';
 import 'package:flutter_doctor_craving/screens/food_categories_screen.dart';
 import 'package:flutter_doctor_craving/screens/foods_screen.dart';
 import 'package:flutter_doctor_craving/widgets/main_drawer.dart';
-import 'package:flutter_doctor_craving/provider/food_provider.dart';
+import 'package:flutter_doctor_craving/providers/food_provider.dart';
+import 'package:flutter_doctor_craving/providers/favorites_provider.dart';
 
 Map<Filter, bool> kInitialFilters = {
   Filter.glutenFree: false,
@@ -25,30 +26,14 @@ class TabsScreen extends ConsumerStatefulWidget {
 
 class _TabsScreenState extends ConsumerState<TabsScreen> {
   int _selectedPageIndex = 0;
-  final List<Food> _favoriteFoods = [];
   Map<Filter, bool> _selectedFilters = kInitialFilters;
 
-  void _showInfoMessage(String message) {
-    ScaffoldMessenger.of(context).clearSnackBars();
-    ScaffoldMessenger.of(
-      context,
-    ).showSnackBar(SnackBar(content: Text(message)));
-  }
-
-  void _toggleFoodFavoriteStatus(Food food) {
-    final isExisting = _favoriteFoods.contains(food);
-    if (isExisting) {
-      setState(() {
-        _favoriteFoods.remove(food);
-      });
-      _showInfoMessage("Removed from Favorites!");
-    } else {
-      setState(() {
-        _favoriteFoods.add(food);
-      });
-      _showInfoMessage("Added to Favorites!");
-    }
-  }
+  // void _showInfoMessage(String message) {
+  //   // ScaffoldMessenger.of(context).clearSnackBars();
+  //   // ScaffoldMessenger.of(
+  //   //   context,
+  //   // ).showSnackBar(SnackBar(content: Text(message)));
+  // }
 
   void _selectPage(int index) {
     setState(() {
@@ -93,15 +78,14 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
     }).toList();
 
     Widget activePage = FoodCategoriesScreen(
-      onToggleFavorite: _toggleFoodFavoriteStatus,
       availableFoods: availableFoods,
     );
     var activePageTitle = "Categories";
 
     if (_selectedPageIndex == 1) {
+      final favoriteFoods = ref.watch(favoriteFoodsProvider);
       activePage = FoodsScreen(
-        foods: _favoriteFoods,
-        onToggleFavorite: _toggleFoodFavoriteStatus,
+        foods: favoriteFoods,
       );
       activePageTitle = "Your Favorites";
     }

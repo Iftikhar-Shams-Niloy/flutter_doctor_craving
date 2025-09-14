@@ -1,25 +1,39 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_doctor_craving/models/food.dart';
+import 'package:flutter_doctor_craving/providers/favorites_provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class FoodDetailsScreen extends StatelessWidget {
+class FoodDetailsScreen extends ConsumerWidget {
   const FoodDetailsScreen({
     super.key,
     required this.food,
-    required this.onToggleFavorite,
+    // required this.onToggleFavorite,
   });
 
   final Food food;
-  final void Function(Food food) onToggleFavorite;
+  // final void Function(Food food) onToggleFavorite;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(
         title: Text(food.title),
         actions: [
           IconButton(
             onPressed: () {
-              onToggleFavorite(food);
+              final wasAdded = ref
+                  .read(favoriteFoodsProvider.notifier)
+                  .toggleFoodFavoriteStatus(food);
+              ScaffoldMessenger.of(context).clearSnackBars();
+              ScaffoldMessenger.of(
+                context,
+              ).showSnackBar(
+                SnackBar(
+                  content: Text(
+                    wasAdded ? 'Added to favorite!' : 'Removed from favorite!',
+                  ),
+                ),
+              );
             },
             icon: Icon(Icons.star),
           ),
