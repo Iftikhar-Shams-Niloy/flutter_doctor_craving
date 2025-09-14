@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_doctor_craving/screens/tabs_screen.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 // import 'package:google_fonts/google_fonts.dart';
 
 final colorSchemeLight = ColorScheme.fromSeed(
@@ -11,7 +12,11 @@ final colorSchemeDark = ColorScheme.fromSeed(
 );
 
 void main() {
-  runApp(const App());
+  runApp(
+    const ProviderScope(
+      child: App(),
+    ),
+  );
 }
 
 class App extends StatelessWidget {

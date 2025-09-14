@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_doctor_craving/screens/tabs_screen.dart';
-import 'package:flutter_doctor_craving/widgets/main_drawer.dart';
 
 enum Filter {
   glutenFree,
