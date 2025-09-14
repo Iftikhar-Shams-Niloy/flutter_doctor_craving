@@ -1,9 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_doctor_craving/data/dummy_data.dart';
 import 'package:flutter_doctor_craving/models/food.dart';
 import 'package:flutter_doctor_craving/screens/filters_screen.dart';
 import 'package:flutter_doctor_craving/screens/food_categories_screen.dart';
 import 'package:flutter_doctor_craving/screens/foods_screen.dart';
 import 'package:flutter_doctor_craving/widgets/main_drawer.dart';
+
+Map<Filter, bool> kInitialFilters = {
+  Filter.glutenFree: false,
+  Filter.lactoseFree: false,
+  Filter.vegetarian: false,
+  Filter.vegan: false,
+};
 
 class TabsScreen extends StatefulWidget {
   const TabsScreen({super.key});
@@ -17,6 +25,7 @@ class TabsScreen extends StatefulWidget {
 class _TabsScreenState extends State<TabsScreen> {
   int _selectedPageIndex = 0;
   final List<Food> _favoriteFoods = [];
+  Map<Filter, bool> _selectedFilters = kInitialFilters;
 
   void _showInfoMessage(String message) {
     ScaffoldMessenger.of(context).clearSnackBars();
@@ -46,23 +55,44 @@ class _TabsScreenState extends State<TabsScreen> {
     });
   }
 
-  void _setScreen(String identifier) {
+  void _setScreen(String identifier) async {
     Navigator.of(context).pop();
     if (identifier == "filters") {
-      Navigator.of(
-        context,
-      ).push(
-        MaterialPageRoute(
-          builder: (ctx) => FiltersScreen(),
-        ),
-      );
+      final result =
+          await Navigator.of(
+            context,
+          ).push<Map<Filter, bool>>(
+            MaterialPageRoute(
+              builder: (ctx) => FiltersScreen(
+                currentFilters: _selectedFilters,
+              ),
+            ),
+          );
+      _selectedFilters = result ?? kInitialFilters;
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    final availableFoods = dummyFoods.where((food) {
+      if (_selectedFilters[Filter.glutenFree]! && !food.isGlutenFree) {
+        return false;
+      }
+      if (_selectedFilters[Filter.lactoseFree]! && !food.isLactoseFree) {
+        return false;
+      }
+      if (_selectedFilters[Filter.vegetarian]! && !food.isVegetarian) {
+        return false;
+      }
+      if (_selectedFilters[Filter.glutenFree]! && !food.isVegan) {
+        return false;
+      }
+      return true;
+    }).toList();
+
     Widget activePage = FoodCategoriesScreen(
       onToggleFavorite: _toggleFoodFavoriteStatus,
+      availableFoods: availableFoods,
     );
     var activePageTitle = "Categories";
 
