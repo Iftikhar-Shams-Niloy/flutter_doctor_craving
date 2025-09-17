@@ -4,7 +4,6 @@ import 'package:flutter_doctor_craving/screens/filters_screen.dart';
 import 'package:flutter_doctor_craving/screens/food_categories_screen.dart';
 import 'package:flutter_doctor_craving/screens/foods_screen.dart';
 import 'package:flutter_doctor_craving/widgets/main_drawer.dart';
-import 'package:flutter_doctor_craving/providers/food_provider.dart';
 import 'package:flutter_doctor_craving/providers/favorites_provider.dart';
 import 'package:flutter_doctor_craving/providers/filters_provider.dart';
 
@@ -36,35 +35,19 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
   void _setScreen(String identifier) async {
     Navigator.of(context).pop();
     if (identifier == "filters") {
-          await Navigator.of(
-            context,
-          ).push<Map<Filter, bool>>(
-            MaterialPageRoute(
-              builder: (ctx) => FiltersScreen(),
-            ),
-          );
+      await Navigator.of(
+        context,
+      ).push<Map<Filter, bool>>(
+        MaterialPageRoute(
+          builder: (ctx) => FiltersScreen(),
+        ),
+      );
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    final foods = ref.watch(foodsProvider);
-    final activeFilters = ref.watch(filtersProvider);
-    final availableFoods = foods.where((food) {
-      if (activeFilters[Filter.glutenFree]! && !food.isGlutenFree) {
-        return false;
-      }
-      if (activeFilters[Filter.lactoseFree]! && !food.isLactoseFree) {
-        return false;
-      }
-      if (activeFilters[Filter.vegetarian]! && !food.isVegetarian) {
-        return false;
-      }
-      if (activeFilters[Filter.glutenFree]! && !food.isVegan) {
-        return false;
-      }
-      return true;
-    }).toList();
+    final availableFoods = ref.watch(filteredFoodsProvider);
 
     Widget activePage = FoodCategoriesScreen(
       availableFoods: availableFoods,
