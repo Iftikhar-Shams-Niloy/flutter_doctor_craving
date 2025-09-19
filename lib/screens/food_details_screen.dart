@@ -38,7 +38,21 @@ class FoodDetailsScreen extends ConsumerWidget {
                 ),
               );
             },
-            icon: Icon(isFavorite ? Icons.star : Icons.star_border_outlined),
+            //! Star Icon Animation Here (Implicit)
+            icon: AnimatedSwitcher(
+              duration: const Duration(milliseconds: 500),
+              transitionBuilder: (myChild, myAnimation) {
+                return RotationTransition(
+                  //* Tween gives more control over our animation
+                  turns: Tween(begin: 0.75, end: 1.0).animate(myAnimation),
+                  child: myChild,
+                );
+              },
+              child: Icon(
+                isFavorite ? Icons.star : Icons.star_border_outlined,
+                key: ValueKey(isFavorite),
+              ),
+            ),
           ),
         ],
       ),
@@ -54,6 +68,8 @@ class FoodDetailsScreen extends ConsumerWidget {
             const SizedBox(
               height: 14,
             ),
+
+            //* <-- Ingredients List Here --> //
             Text(
               "Ingredient",
               style: Theme.of(context).textTheme.titleLarge!.copyWith(
@@ -64,7 +80,6 @@ class FoodDetailsScreen extends ConsumerWidget {
             const SizedBox(
               height: 8,
             ),
-            // <-- Ingredients List Here --> //
             for (final ingredient in food.ingredients)
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 2.0),
@@ -77,7 +92,8 @@ class FoodDetailsScreen extends ConsumerWidget {
             const SizedBox(
               height: 16,
             ),
-            // <-- Steps Here -->
+
+            //* <-- Steps Here -->
             Text(
               "Steps",
               style: Theme.of(context).textTheme.titleLarge!.copyWith(
