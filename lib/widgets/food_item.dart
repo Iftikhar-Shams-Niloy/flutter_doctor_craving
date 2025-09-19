@@ -37,12 +37,17 @@ class FoodItem extends StatelessWidget {
         },
         child: Stack(
           children: [
-            FadeInImage(
-              placeholder: MemoryImage(kTransparentImage),
-              image: NetworkImage(food.imageUrl),
-              fit: BoxFit.cover,
-              height: 250,
-              width: double.infinity,
+            //! Check food_details_screen.dart to know how to use Hero widget
+            Hero(
+              tag: food.id,
+              //! This maked the item smoothly fade in on the screen.
+              child: FadeInImage(
+                placeholder: MemoryImage(kTransparentImage),
+                image: NetworkImage(food.imageUrl),
+                fit: BoxFit.cover,
+                height: 250,
+                width: double.infinity,
+              ),
             ),
             Positioned(
               bottom: 0,

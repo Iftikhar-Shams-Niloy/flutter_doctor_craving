@@ -59,11 +59,15 @@ class FoodDetailsScreen extends ConsumerWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Image.network(
-              food.imageUrl,
-              height: 300,
-              width: double.infinity,
-              fit: BoxFit.cover,
+            //! Check the food_item.dart file to know how to implement Hero Widget.
+            Hero(
+              tag: food.id,
+              child: Image.network(
+                food.imageUrl,
+                height: 300,
+                width: double.infinity,
+                fit: BoxFit.cover,
+              ),
             ),
             const SizedBox(
               height: 14,
