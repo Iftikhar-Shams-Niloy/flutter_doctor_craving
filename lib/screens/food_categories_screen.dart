@@ -19,14 +19,17 @@ class FoodCategoriesScreen extends StatefulWidget {
 
 class _FoodCategoriesScreenState extends State<FoodCategoriesScreen>
     with SingleTickerProviderStateMixin {
-  late AnimationController _animationController;
+  late AnimationController
+  //! <--- Making a Animation controller named "_animationController" --->
+  _animationController;
 
+  //! <--- Set the _animationController configs in initState() --->
   @override
   void initState() {
     super.initState();
     _animationController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 300),
+      duration: const Duration(milliseconds: 500),
       lowerBound: 0,
       upperBound: 1,
     );
@@ -76,8 +79,20 @@ class _FoodCategoriesScreenState extends State<FoodCategoriesScreen>
             ),
         ],
       ),
-      builder: (context, child) => Padding(
-        padding: EdgeInsets.only(top: 100 - _animationController.value * 100),
+
+      //* <--- Sliding Transition Here --->
+      builder: (context, child) => SlideTransition(
+        position:
+            Tween(
+              begin: Offset(0.0, 0.3),
+              end: Offset(0, 0),
+              //* <--- Getting more control on how the animation is played --->
+            ).animate(
+              CurvedAnimation(
+                parent: _animationController,
+                curve: Curves.easeInOut,
+              ),
+            ),
         child: child,
       ),
     );
